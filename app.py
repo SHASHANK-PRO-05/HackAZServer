@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, jsonify
 import jwt
 import json
 
-with open('./config.json', 'r') as f:
+with open('./server_key.json', 'r') as f:
     config = json.load(f)
 
 secret_key = config['SERVER_KEY']
@@ -66,10 +66,13 @@ def otherapi():
         token = bearer[1]
         user_cred_dict = jwt.decode(token, secret_key)
 
+        #TODO Check user name and pass in database. If doesnot exist return else return the name and pass
+
     #TODO incomplete
 
+    ucd = ".".join([v for k, v in user_cred_dict.items()])
 
-    return render_template('login.html', error=error)
+    return ucd
 
 
 
